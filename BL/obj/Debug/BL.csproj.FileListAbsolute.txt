@@ -1,0 +1,9 @@
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\BL.dll
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\BL.pdb
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\DL.dll
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\ML.dll
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\DL.pdb
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\bin\Debug\ML.pdb
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\obj\Debug\BL.dll
+C:\Users\ALIEN10\Documents\FernandezGonzalezJulioAlberto\NuevosEjerc\CrudADO.NET\BL\obj\Debug\BL.pdb

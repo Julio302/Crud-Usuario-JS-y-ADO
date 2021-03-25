@@ -1,0 +1,40 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAllUsuario";
+}
+
+<h2>Usuario</h2>
+
+<div class="container">
+    <div>
+        <a href="@Url.Action("AddUsuario", "Usuario")" class="btn btn-success">+</a>
+    </div>
+    <table class="table table-bordered table-hover table-responsive">
+        <thead class="text-center">
+            <tr>
+                <td>Id</td>
+                <td>Nombre</td>
+                <td>Apellido Paterno</td>
+                <td>Apellido Materno</td>
+                <td>Telefono</td>
+                <td>Dirección</td>
+                <td>Modificar</td>
+                <td>Eliminar</td>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach(ML.Usuario usuario in Model.Usuarios){
+                <tr>
+                    <td>@usuario.IDUsuario</td>
+                    <td>@usuario.Nombre</td>
+                    <td>@usuario.ApellidoPaterno</td>
+                    <td>@usuario.ApellidoMaterno</td>
+                    <td>@usuario.Telefono</td>
+                    <td>@usuario.Direccion</td>
+                    <td><a class="btn btn-danger glyphicon glyphicon-remove" href="@Url.Action("DeleteUsuario", new { Id = @usuario.IDUsuario})"></a></td>
+                    <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("UpdateUsuario", new { Id = @usuario.IDUsuario})"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

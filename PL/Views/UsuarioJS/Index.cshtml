@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Usuario JS</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="http://localhost:14554/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="http://localhost:14554/Scripts/jquery-1.10.2.min.js"></script>
+<div class="container">
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btn">
+            +
+        </button>
+    </div>
+    <table class="table table-bordered table-hover table-responsive">
+        <thead class="text-center">
+            <tr>
+                <td>Id</td>
+                <td>Nombre</td>
+                <td>Apellido Paterno</td>
+                <td>Apellido Materno</td>
+                <td>Telefono</td>
+                <td>Dirección</td>
+                <td>Modificar</td>
+                <td>Eliminar</td>
+            </tr>
+        </thead>
+        <tbody class="tbody text-center"></tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Usuarios</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="IdUsuario" style="display:none;">IdUsuario</label>
+                            <input type="text" class="form-control" id="IdUsuario" placeholder="Id" disabled="disabled" style="display:block;" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Nombre">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre" placeholder="Nombre" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="ApellidoPaterno">Apellido Paterno</label>
+                            <input type="text" class="form-control" id="ApellidoPaterno" placeholder="Apellido Paterno" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="ApellidoMaterno">Apellido Materno</label>
+                            <input type="text" class="form-control" id="ApellidoMaterno" placeholder="Apellido Materno" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="Telefono">Telefono</label>
+                            <input type="text" class="form-control" id="Telefono" placeholder="Telefono" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="Direccion">Dirección</label>
+                            <input type="text" class="form-control" id="Direccion" placeholder="Direccion" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnclose" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="Add();">Agregar Usuario</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+<script type="application/javascript">
+    $(document).ready(function(){
+        GetAllUsuario();
+    });
+
+    function GetAllUsuario() {
+    $.ajax({
+        url: 'http://localhost:14554/api/Usuario',
+        type: 'GET',
+        success: function (result) {
+                var html = '';
+                $.each(result.Objects, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.IDUsuario + '</td>';
+                    html += '<td>' + item.Nombre + '</td>';
+                    html += '<td>' + item.ApellidoPaterno + '</td>';
+                    html += '<td>' + item.ApellidoMaterno + '</td>';
+                    html += '<td>' + item.Telefono + '</td>';
+                    html += '<td>' + item.Direccion + '</td>';
+                    html += '<td><button class="btn btn-warning" onclick="getbyID('+ item.IDUsuario +')">Modificar</button></td>';
+                    html += '<td><button class="btn btn-danger" onclick="Delete('+ item.IDUsuario +')">Eliminar</button></td>'
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+    });
+    }
+
+    function Add(){
+        var UsuObj = {
+            IdUsuario : $('#IdUsuario').val(),
+            Nombre: $('#Nombre').val(),
+            ApellidoPaterno: $('#ApellidoPaterno').val(),
+            ApellidoMaterno: $('#ApellidoMaterno').val(),
+            Telefono: $('#Telefono').val(),
+            Direccion: $('#Direccion').val()
+        };
+         $.ajax({
+            url: "http://localhost:14554/api/Usuario",
+            data: JSON.stringify(UsuObj),
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function(result){
+                GetAllUsuario();
+                 $('#btnUpdate').hide();
+                $('#btnclose').click();
+            },
+            error: function(errormessage){
+                alert("error");
+            }
+        });
+    }
+
+    //function de GetById
+     function getbyID(IDUsuario){
+        //alert(IDUsuario)
+        $.ajax({
+                url: "http://localhost:14554/api/Usuario/"+IDUsuario,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function(result){
+                    $('#IdUsuario').val(result.Object.IDUsuario);
+                    $('#Nombre').val(result.Object.Nombre);
+                    $('#ApellidoPaterno').val(result.Object.ApellidoPaterno);
+                    $('#ApellidoMaterno').val(result.Object.ApellidoMaterno);
+                    $('#Telefono').val(result.Object.Telefono);
+                    $('#Direccion').val(result.Object.Direccion);
+                    $('#exampleModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+                }
+            });
+     }
+
+
+    //Function de Modificar
+    function Update(){
+        var UsuObj = {
+            IdUsuario : $('#IdUsuario').val(),
+            Nombre: $('#Nombre').val(),
+            ApellidoPaterno: $('#ApellidoPaterno').val(),
+            ApellidoMaterno: $('#ApellidoMaterno').val(),
+            Telefono: $('#Telefono').val(),
+            Direccion: $('#Direccion').val()
+        };
+
+        $.ajax({
+        url: "http://localhost:14554/api/Usuario/"+UsuObj.IdUsuario,
+        data: JSON.stringify(UsuObj),
+        type: "PUT",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            GetAllUsuario();
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#btnclose').click();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+        });
+    }
+
+    function Delete(IDUsuario)
+    {
+        var ans = confirm("Estas seguro de eliminar este usuario?");
+        if (ans) {
+            $.ajax({
+                url: "http://localhost:14554/api/Usuario/" + IDUsuario,
+                type: "DELETE",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    GetAllUsuario();
+                },
+                error: function (errormessage) {
+                    alert("error");
+                }
+         });
+        }
+    }
+
+    let btn = document.querySelector("#btn");
+    btn.addEventListener("click", function(){
+        limpiar();
+    });
+
+    function limpiar(){
+        document.querySelector("#IdUsuario").value = "";
+        document.querySelector("#Nombre").value = "";
+        document.querySelector("#ApellidoPaterno").value = "";
+        document.querySelector("#ApellidoMaterno").value = "";
+        document.querySelector("#Telefono").value = "";
+        document.querySelector("#Direccion").value = "";
+    }
+
+</script>

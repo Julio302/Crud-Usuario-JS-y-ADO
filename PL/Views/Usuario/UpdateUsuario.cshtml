@@ -1,0 +1,56 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "UpdateUsuario";
+}
+
+<h2>Update Usuario</h2>
+
+
+<div class="container">
+    <div class="form-inline">
+        @using (Html.BeginForm("UsuarioUpdate", "Usuario", FormMethod.Post))
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IDUsuario)
+                            @Html.TextBoxFor(model => model.IDUsuario, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IDUsuario)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nombre)
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApellidoPaterno)
+                            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApellidoMaterno)
+                            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefono)
+                            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Telefono)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Direccion)
+                            @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Direccion)
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Modificar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
